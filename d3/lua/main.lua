@@ -17,38 +17,31 @@ function p1 ()
   end
 
   local most_common_reverse = {}
+  local least_common_reverse = {}
   for c = #col_sums, 1, -1 do
     if num_lines/col_sums[c] < 2 then
+      least_common_reverse[c] = 0
       most_common_reverse[c] = 1
     else
+      least_common_reverse[c] = 1
       most_common_reverse[c] = 0
     end
   end
 
   local gamma = tonumber(table.concat(most_common_reverse, ""), 2)
-
-  local least_common_reverse = {}
-  for c = #col_sums, 1, -1 do
-    if num_lines/col_sums[c] > 2 then
-      least_common_reverse[c] = 1
-    else
-      least_common_reverse[c] = 0
-    end
-  end
-
   local epsilon = tonumber(table.concat(least_common_reverse, ""), 2)
   print(epsilon * gamma)
 end
 
 function p2 ()
   local go
-  go = function(lines, column, isneedle)
+  go = function(lines, column, make_needle)
     local sum = 0
     for _, line in ipairs(lines) do
       sum = sum + line:sub(column,column)
     end
 
-    local needle = isneedle(#lines, sum)
+    local needle = make_needle(#lines, sum)
 
     local keep = {}
     for _, line in ipairs(lines) do
@@ -61,7 +54,7 @@ function p2 ()
       return keep[1]
     end
 
-    return go(keep, column + 1, isneedle)
+    return go(keep, column + 1, make_needle)
   end
 
   local lines = {}
@@ -70,17 +63,11 @@ function p2 ()
   end
 
   local most_common = function(num_lines, sum)
-    if num_lines/sum > 2 then
-      return "0"
-    end
-    return "1"
+    return (num_lines/sum > 2 and "0") or "1"
   end
 
   local least_common = function(num_lines, sum)
-    if num_lines/sum > 2 then
-      return "1"
-    end
-    return "0"
+    return (num_lines/sum > 2 and "1") or "0"
   end
 
   local oxygen = go(lines, 1, most_common)
