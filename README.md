@@ -3,14 +3,14 @@
 Advent of Code 2021 solutions. Each day has one folder per language and each
 such folder is a tiny Nix project.
 
-## Progress (3/25)
+## Progress (4/25)
 
 |     | Haskell | Lua     |
 | --- | ------- | ------- |
 | 1   | :zzz:   | :bell:  |
 | 2   | :zzz:   | :bell:  |
 | 3   | :zzz:   | :bell:  |
-| 4   | :zzz:   | :zzz:   |
+| 4   | :zzz:   | :bell:  |
 | 5   | :zzz:   | :zzz:   |
 | 6   | :zzz:   | :zzz:   |
 | 7   | :zzz:   | :zzz:   |
