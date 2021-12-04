@@ -1,5 +1,5 @@
 {
-  description = "Nix Flake template using the 'nixpkgs-unstable' branch and 'flake-utils'";
+  description = "Advent of Code 2021";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -19,6 +19,7 @@
             coreutils
             moreutils
             jq
+
             lua5_4
           ];
         };
