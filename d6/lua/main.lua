@@ -6,6 +6,7 @@ for age in string.gmatch(io.read("a"), "%d+") do
   age_count[age] = (age_count[age] or 0) + 1
 end
 
+-- Change to 80 for part 1
 for d = 1, 256 do
   num_create = age_count[1] or 0
   -- Move the array left by 1
