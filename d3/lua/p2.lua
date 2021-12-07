@@ -1,4 +1,3 @@
-local go
 go = function(lines, column, make_needle)
   local sum = 0
   for _, line in ipairs(lines) do
@@ -21,20 +20,20 @@ go = function(lines, column, make_needle)
   return go(keep, column + 1, make_needle)
 end
 
-local lines = {}
+lines = {}
 for line in io.input():lines("*l") do
   table.insert(lines, line)
 end
 
-local most_common = function(num_lines, sum)
+most_common = function(num_lines, sum)
   return (num_lines/sum > 2 and "0") or "1"
 end
 
-local least_common = function(num_lines, sum)
+least_common = function(num_lines, sum)
   return (num_lines/sum > 2 and "1") or "0"
 end
 
-local oxygen = go(lines, 1, most_common)
-local co2 = go(lines, 1, least_common)
+oxygen = go(lines, 1, most_common)
+co2 = go(lines, 1, least_common)
 print(tonumber(oxygen, 2) * tonumber(co2, 2))
 

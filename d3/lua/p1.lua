@@ -1,19 +1,19 @@
-local col_sums = {}
-local num_lines = 0
+-- Read the input values linewise but track the columns.
+col_sums = {}
+num_lines = 0
 for line in io.input():lines("*l") do
   num_lines = num_lines + 1
   local column = 1
   for digit in string.gmatch(line, ".") do
-    if not col_sums[column] then
-      col_sums[column] = 0
-    end
-    col_sums[column] = col_sums[column] + tonumber(digit)
+    col_sums[column] = (col_sums[column] or 0) + tonumber(digit)
     column = column + 1
   end
 end
 
-local most_common_reverse = {}
-local least_common_reverse = {}
+-- Finding the most or least common binary value in a list of binary values is
+-- as simple as checking if the sum is lower than half the length.
+most_common_reverse = {}
+least_common_reverse = {}
 for c = #col_sums, 1, -1 do
   if num_lines/col_sums[c] < 2 then
     least_common_reverse[c] = 0
@@ -24,6 +24,6 @@ for c = #col_sums, 1, -1 do
   end
 end
 
-local gamma = tonumber(table.concat(most_common_reverse, ""), 2)
-local epsilon = tonumber(table.concat(least_common_reverse, ""), 2)
+gamma = tonumber(table.concat(most_common_reverse, ""), 2)
+epsilon = tonumber(table.concat(least_common_reverse, ""), 2)
 print(epsilon * gamma)
