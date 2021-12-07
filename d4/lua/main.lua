@@ -46,11 +46,8 @@ function is_complete(board)
 end
 
 function read()
-  local numbers = {}
-  local boards = {}
-
-  cur_board_num = 0
-  cur_board_row = 0
+  local numbers, boards = {}, {}
+  local cur_board_num, cur_board_row = 0,0
   for line in io.input():lines("*l") do
     -- Start a new board
     if string.match(line, "^$") then
@@ -81,3 +78,27 @@ function read()
 
   return boards, numbers
 end
+
+boards, numbers = read()
+winners = {}
+for _, d in ipairs(numbers) do
+  for b_num, b in ipairs(boards) do
+    -- Skip boards that are complete or else they will eventually end up with
+    -- ALL fields marked and then you get a score of 0
+    if not is_complete(b) then
+      for row_num, row in ipairs(b) do
+        for i, value in ipairs(row) do
+          if d == value.num then
+            boards[b_num][row_num][i].hit = true
+          end
+        end
+      end
+      if is_complete(b) then
+        table.insert(winners, {board = b, num = d})
+      end
+    end
+  end
+end
+
+print(score(winners[1].board) * winners[1].num)
+print(score(winners[#winners].board) * winners[#winners].num)
