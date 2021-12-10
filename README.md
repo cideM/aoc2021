@@ -3,7 +3,7 @@
 Advent of Code 2021 solutions. Each day has one folder per language and each
 such folder is a tiny Nix project.
 
-## Progress (9/25)
+## Progress (10/25)
 
 |     | Haskell | Lua     |
 | --- | ------- | ------- |
@@ -16,7 +16,7 @@ such folder is a tiny Nix project.
 | 7   | :zzz:   | :bell:  |
 | 8   | :zzz:   | :bell:  |
 | 9   | :zzz:   | :bell:  |
-| 10  | :zzz:   | :zzz:   |
+| 10  | :zzz:   | :bell:  |
 | 11  | :zzz:   | :zzz:   |
 | 12  | :zzz:   | :zzz:   |
 | 13  | :zzz:   | :zzz:   |
