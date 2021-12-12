@@ -7,14 +7,6 @@ for line in io.input():lines("*l") do
   table.insert(CAVES[b], a)
 end
 
--- copytable creates a shallow clone and should only be used with primitive
--- keys and values
-function copytable(t)
-  local copy = {}
-  for k, v in pairs(t) do; copy[k] = v end
-  return copy
-end
-
 function islower(s) return string.match(s,"^[a-z]+$") end
 
 -- revisited checks if the list "l" includes any lower case character
@@ -33,7 +25,8 @@ ALLOW_REVISIT = false
 
 -- go continues "oldpath" at all eligible neighbours of node "n"
 function go(n, oldpath)
-  local oldpathcopy = copytable(oldpath)
+  local oldpathcopy = {}
+  for k, v in pairs(oldpath) do; oldpathcopy[k] = v end
   table.insert(oldpathcopy, n)
   if n == "end" then return {oldpathcopy} end
 
