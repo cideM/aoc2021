@@ -1,8 +1,5 @@
 # :christmas_tree: Advent of Code 2021 :santa:
 
-Advent of Code 2021 solutions. Each day has one folder per language and each
-such folder is a tiny Nix project.
-
 ## Progress (12/25)
 
 |     | Haskell | Lua     |
