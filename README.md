@@ -1,6 +1,6 @@
 # :christmas_tree: Advent of Code 2021 :santa:
 
-## Progress (12/25)
+## Progress (13/25)
 
 |     | Haskell | Lua     |
 | --- | ------- | ------- |
@@ -16,7 +16,7 @@
 | 10  | :zzz:   | :bell:  |
 | 11  | :zzz:   | :bell:  |
 | 12  | :zzz:   | :bell:  |
-| 13  | :zzz:   | :zzz:   |
+| 13  | :zzz:   | :bell:  |
 | 14  | :zzz:   | :zzz:   |
 | 15  | :zzz:   | :zzz:   |
 | 16  | :zzz:   | :zzz:   |
@@ -38,4 +38,3 @@ Post code on Reddit, first for Linux, second for MacOS.
 $ cat code | sed 's/^/    /' | xsel -b`
 $ cat code | sed 's/^/    /' | pbcopy`
 ```
-
