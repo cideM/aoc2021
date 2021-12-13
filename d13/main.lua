@@ -28,21 +28,10 @@ function unkey(s)
   return tonumber(x), tonumber(y)
 end
 
--- fold traverses the grid and for **marked** points it call the given "move"
--- function. If that function returns nil, nothing happens, otherwise it moves
--- the point to the new coordinates returned by "move".
 function fold(move)
   local newgrid = {}
-  for key in pairs(GRID) do
-    if GRID[key] then
-      local newx, newy = move(key)
-      if newx and newy then
-        GRID[key] = nil
-        newgrid[makekey(newx, newy)] = "#"
-      end
-    end
-  end
-  for k,v in pairs(newgrid) do GRID[k] = v end
+  for key in pairs(GRID) do; newgrid[move(key)] = "#"; end
+  GRID = newgrid
 end
 
 COUNTS = {}
@@ -57,7 +46,7 @@ for line in io.input():lines("*l") do
     local foldx = tonumber(string.match(line, "fold along x=(%d+)"))
     fold(function (key)
       local x,y = unkey(key)
-      if x > foldx then return foldx - (x - foldx), y end
+      return x > foldx and makekey(foldx - (x - foldx), y) or key
     end)
     table.insert(COUNTS, count())
     MAX_X = math.min(MAX_X, foldx - 1) -- Truncate the grid after folding
@@ -67,7 +56,7 @@ for line in io.input():lines("*l") do
     local foldy = tonumber(string.match(line, "fold along y=(%d+)"))
     fold(function (key)
       local x,y = unkey(key)
-      if y > foldy then return x, foldy - (y - foldy) end
+      return y > foldy and makekey(x, foldy - (y - foldy)) or key
     end)
     table.insert(COUNTS, count())
     MAX_Y = math.min(MAX_Y, foldy - 1) -- Truncate the grid after folding
