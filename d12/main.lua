@@ -25,8 +25,7 @@ ALLOW_REVISIT = false
 
 -- go continues "oldpath" at all eligible neighbours of node "n"
 function go(n, oldpath)
-  local oldpathcopy = {}
-  for k, v in pairs(oldpath) do; oldpathcopy[k] = v end
+  local oldpathcopy = table.move(oldpath, 1, #oldpath, 1, {})
   table.insert(oldpathcopy, n)
   if n == "end" then return {oldpathcopy} end
 
