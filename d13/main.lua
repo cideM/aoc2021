@@ -43,7 +43,7 @@ for line in io.input():lines("*l") do
   end
 
   if string.match(line, "fold along x") then
-    local foldx = tonumber(string.match(line, "fold along x=(%d+)"))
+    local foldx = tonumber(string.match(line, "%d+"))
     fold(function (key)
       local x,y = unkey(key)
       return x > foldx and makekey(foldx - (x - foldx), y) or key
@@ -53,7 +53,7 @@ for line in io.input():lines("*l") do
   end
 
   if string.match(line, "fold along y") then
-    local foldy = tonumber(string.match(line, "fold along y=(%d+)"))
+    local foldy = tonumber(string.match(line, "%d+"))
     fold(function (key)
       local x,y = unkey(key)
       return y > foldy and makekey(x, foldy - (y - foldy)) or key
