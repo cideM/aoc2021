@@ -1,6 +1,6 @@
 # :christmas_tree: Advent of Code 2021 :santa:
 
-## Progress (14/25)
+## Progress (15/25)
 
 |     | Haskell | Lua     |
 | --- | ------- | ------- |
@@ -18,7 +18,7 @@
 | 12  | :zzz:   | :bell:  |
 | 13  | :zzz:   | :bell:  |
 | 14  | :zzz:   | :bell:  |
-| 15  | :zzz:   | :zzz:   |
+| 15  | :zzz:   | :bell:  |
 | 16  | :zzz:   | :zzz:   |
 | 17  | :zzz:   | :zzz:   |
 | 18  | :zzz:   | :zzz:   |
