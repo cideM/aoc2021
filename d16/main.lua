@@ -1,24 +1,19 @@
-function hex_to_binary(char)
-  local t = { ["0"] = "0000", ["1"] = "0001", ["2"] = "0010", ["3"] = "0011",
-              ["4"] = "0100", ["5"] = "0101", ["6"] = "0110", ["7"] = "0111",
-              ["8"] = "1000", ["9"] = "1001", ["A"] = "1010", ["B"] = "1011",
-              ["C"] = "1100", ["D"] = "1101", ["E"] = "1110", ["F"] = "1111", }
-  return t[char]
-end
+hex_to_binary = { ["0"] = "0000", ["1"] = "0001", ["2"] = "0010", ["3"] = "0011",
+                  ["4"] = "0100", ["5"] = "0101", ["6"] = "0110", ["7"] = "0111",
+                  ["8"] = "1000", ["9"] = "1001", ["A"] = "1010", ["B"] = "1011",
+                  ["C"] = "1100", ["D"] = "1101", ["E"] = "1110", ["F"] = "1111", }
 
 function parse_packet(s)
   local version, type_id, num_parsed = tonumber(s:sub(1,3), 2), tonumber(s:sub(4,6), 2), 6
   local packet = { version = version, type_id = type_id, number = nil, sub_packets = {} }
 
   if type_id == 4 then
-    local substr = s:sub(7)
-    local groups, parsed = {}, 0
-    for i = 1, #s, 5 do
+    local groups, substr = {}, s:sub(7)
+    for i = 1, #substr, 5 do
       table.insert(groups, substr:sub(i+1,i+4))
-      parsed = parsed + 5
       if substr:sub(i,i) ~= "1" then
         packet.number = tonumber(table.concat(groups), 2)
-        return packet, num_parsed + parsed
+        return packet, num_parsed + #groups * 5
       end
     end
   else
@@ -80,7 +75,7 @@ function score_version(p)
 end
 
 BINARY = {}
-for c in string.gmatch(io.read("l"), ".") do table.insert(BINARY, hex_to_binary(c)) end
+for c in string.gmatch(io.read("l"), ".") do table.insert(BINARY, hex_to_binary[c]) end
 
 parsed = parse_packet(table.concat(BINARY))
 print(score_version(parsed), score(parsed))
