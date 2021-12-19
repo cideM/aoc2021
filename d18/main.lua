@@ -3,8 +3,25 @@ function parse(s)
   return load(string.format("return %s",s))()
 end
 
--- explode returns whether the function call exploded a pair
+-- explode performs a single explosion in the given tree and adds the left and
+-- right number of the exploded pair in the correct places. It returns:
+-- - new tree
+-- - value that needs to be added on the left (if any)
+-- - value that needs to be added on the right (if any)
+-- - if an explosion happened
 function explode(t, depth, add_l, add_r, can_explode)
+  --[[
+  explode has two tasks:
+  1. perform a single explosion, as long as "can_explode" is true
+  2. add the left and right numbers of the exploded pair in the correct places
+  Task 2. is achieved by traversing the tree depth-first and favoring the left
+  subtree, so any node knows about explosions that happened in its subtrees
+  before moving further up. The two numbers are then propagated up through
+  return values and past into other, unevaluated subtrees. The only exception
+  here is that if a right subtree explodes, the left was already rebuilt so we
+  need to rebuild the left subtree again, with the knowledge of the right
+  subtree explosion.
+  --]]
   local depth, can_explode = depth or 0, can_explode == nil and true or can_explode
 
   if type(t) == "number" then
@@ -49,7 +66,8 @@ function explode(t, depth, add_l, add_r, can_explode)
 
 end
 
--- split returns whether the function call split a number
+-- split a single number in the given tree "t". Returns the new tree and
+-- whether a split occurred.
 function split(t, can_split)
   local can_split = can_split == nil and true or can_split
   if type(t) == "number" then
