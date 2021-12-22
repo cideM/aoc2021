@@ -46,30 +46,27 @@ function split(a, b)
     table.insert(new_cubes, {x1=leftside_x1,x2=leftside_x2,y1=y1a,y2=y2a,z1=z1a,z2=z2a})
   end
 
-  here_x1, here_x2 = commonrange(x1a,x2a)(x1b,x2b)
+  -- these can be re-used so I'm just calling them (rem)aining_x*
+  rem_x1, rem_x2 = commonrange(x1a,x2a)(x1b,x2b)
   here_z1, here_z2 = commonrange(z2b+1, math.maxinteger)(z1a, z2a)
-  if here_x1 and here_z1 then
-    table.insert(new_cubes, {x1=here_x1,x2=here_x2,z1=here_z1,z2=here_z2,y1=y1a,y2=y2a})
+  if rem_x1 and here_z1 then
+    table.insert(new_cubes, {x1=rem_x1,x2=rem_x2,z1=here_z1,z2=here_z2,y1=y1a,y2=y2a})
   end
 
-  other_x1, other_x2 = commonrange(x1a,x2a)(x1b,x2b)
   other_z1, other_z2 = commonrange(math.mininteger, z1b-1)(z1a, z2a)
-  if other_x1 and other_z1 then
-    table.insert(new_cubes, {x1=other_x1,x2=other_x2,z1=other_z1,z2=other_z2,y1=y1a,y2=y2a})
+  if rem_x1 and other_z1 then
+    table.insert(new_cubes, {x1=rem_x1,x2=rem_x2,z1=other_z1,z2=other_z2,y1=y1a,y2=y2a})
   end
 
-  top_x1, top_x2 = commonrange(x1a,x2a)(x1b,x2b)
   top_z1, top_z2 = commonrange(z1a, z2a)(z1b, z2b)
   top_y1, top_y2 = commonrange(y2b+1, math.maxinteger)(y1a,y2a)
-  if top_x1 and top_z1 and top_y1 then
-    table.insert(new_cubes, {x1=top_x1,x2=top_x2,z1=top_z1,z2=top_z2,y1=top_y1,y2=top_y2})
+  if rem_x1 and top_z1 and top_y1 then
+    table.insert(new_cubes, {x1=rem_x1,x2=rem_x2,z1=top_z1,z2=top_z2,y1=top_y1,y2=top_y2})
   end
 
-  bot_x1, bot_x2 = commonrange(x1a,x2a)(x1b,x2b)
-  bot_z1, bot_z2 = commonrange(z1a, z2a)(z1b, z2b)
   bot_y1, bot_y2 = commonrange(math.mininteger, y1b-1)(y1a,y2a)
-  if bot_x1 and bot_z1 and bot_y1 then
-    table.insert(new_cubes, {x1=bot_x1,x2=bot_x2,z1=bot_z1,z2=bot_z2,y1=bot_y1,y2=bot_y2})
+  if rem_x1 and top_z1 and bot_y1 then
+    table.insert(new_cubes, {x1=rem_x1,x2=rem_x2,z1=top_z1,z2=top_z2,y1=bot_y1,y2=bot_y2})
   end
 
   return new_cubes
