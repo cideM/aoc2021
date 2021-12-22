@@ -83,9 +83,11 @@ for line in io.lines() do
   local current_cube, new_cuboids = {x1=x1,x2=x2,y1=y1,y2=y2,z1=z1,z2=z2}, {}
 
   for _, old_cube in ipairs(cuboids) do
-    local overlaps, new_cubes = common(old_cube, current_cube), split(old_cube, current_cube)
-    if #new_cubes > 0 then table.move(new_cubes, 1, #new_cubes, #new_cuboids + 1, new_cuboids)
-    elseif #new_cubes == 0 and not overlaps then table.insert(new_cuboids, old_cube) end
+    if not common(old_cube, current_cube) then table.insert(new_cuboids, old_cube)
+    else
+      local new_cubes = split(old_cube, current_cube)
+      if #new_cubes > 0 then table.move(new_cubes, 1, #new_cubes, #new_cuboids + 1, new_cuboids) end
+    end
   end
 
   if string.match(line, "on") then table.insert(new_cuboids, current_cube) end
