@@ -43,22 +43,20 @@ end
 
 function move_herd(g, v)
   local new_g, moved = {}, false
-  local _, max_y, _, max_x = bounds(g)
-  -- This shouldn't be necessary. You could also map over "g" without modifying
-  -- it and build up "new_g" in the process. Try adding to else branches, where
-  -- you just "new_g[key] = cell". One after the inner and one after the other
-  -- if. Now you'll have an infinite loop but I have NO IDEA WHY. It looks like
-  -- a classic case of mutating a map while iterating but even if I first read
-  -- the result of "pairs(g)" into a list and then iterate over that list it
-  -- fails.
-  for k,v in pairs(g) do new_g[k] = v end
-  for key, cell in pairs(g) do
-    if cell == v then
-      local new_target_key, ok = move(g, key, max_x, max_y)
-      if ok then
-        moved = true
-        new_g[key] = nil
-        new_g[new_target_key] = cell
+  local min_y, max_y, min_x, max_x = bounds(g)
+
+  for y = min_y, max_y do
+    for x = min_x, max_x do
+      local key = makekey(x,y)
+      local cell = g[key]
+      if cell == v then
+        local new_target_key, ok = move(g, key, max_x, max_y)
+        if ok then
+          moved = true
+          new_g[new_target_key] = cell
+        else new_g[key] = new_g[key] and new_g[key] or cell
+        end
+      else new_g[key] = new_g[key] and new_g[key] or cell
       end
     end
   end
@@ -82,7 +80,7 @@ for line in io.lines() do
 end
 
 continue, g, n = true, input, 0
-while continue and n < math.maxinteger do
+while continue do
   g, continue = step(g)
   n = n + 1
 end
