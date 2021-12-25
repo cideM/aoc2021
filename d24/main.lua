@@ -81,6 +81,8 @@ function p1(instructions)
     print(i)
     local result = run(i, instruction_blocks, {9,8,7,6,5,4,3,2,1}, "", empty_reg)
     if result then return result end
+    cache = {}
+    collectgarbage()
   end
 end
 
@@ -90,6 +92,8 @@ function p2(instructions)
     print(i)
     local result = run(i, instruction_blocks, {1,2,3,4,5,6,7,8,9}, "", empty_reg)
     if result then return result end
+    cache = {}
+    collectgarbage()
   end
 end
 
