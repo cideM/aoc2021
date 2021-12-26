@@ -4,7 +4,7 @@
 
 |     | Haskell | Lua     |
 | --- | ------- | ------- |
-| 1   | :zzz:   | :bell:  |
+| 1   | :bell:  | :bell:  |
 | 2   | :zzz:   | :bell:  |
 | 3   | :zzz:   | :bell:  |
 | 4   | :zzz:   | :bell:  |
