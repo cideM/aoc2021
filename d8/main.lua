@@ -2,9 +2,7 @@
 -- arguments
 function intersection(a, ...)
     local occurences = {}
-    for _,v in ipairs(a) do
-      occurences[v] = 1
-    end
+    for _,v in ipairs(a) do occurences[v] = 1 end
 
     local args = table.pack(...)
     for i = 1, args.n do
@@ -27,29 +25,17 @@ end
 -- // b != b // a but my function here will return the same values in both
 -- cases.
 function intersection_complement(a, ...)
-    local inter = intersection(a, ...)
-    local seen = {}
-    for _,v in ipairs(inter) do
-      seen[v] = true
-    end
+    local occurences = {}
+    for _,v in ipairs(a) do occurences[v] = 1 end
 
     local args = table.pack(...)
+    for i = 1, args.n do
+      for _,v in pairs(args[i]) do occurences[v] = (occurences[v] or 0) + 1 end
+    end
 
     local out = {}
-    local out_seen = {}
-    for i = 1, args.n do
-      for _,v in pairs(args[i]) do
-        if not seen[v] and not out_seen[v] then
-          table.insert(out, v)
-          out_seen[v] = true
-        end
-      end
-    end
-    for _,v in pairs(a) do
-      if not seen[v] and not out_seen[v] then
-        table.insert(out, v)
-        out_seen[v] = true
-      end
+    for k,v in pairs(occurences) do
+      if v ~= select("#",...) + 1 then table.insert(out, k) end
     end
     return out
 end
