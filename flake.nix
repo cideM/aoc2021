@@ -12,9 +12,6 @@
         pkgs = import nixpkgs {
           inherit system;
         };
-        pkgsX86 = import nixpkgs {
-          system = if system == "aarch64-darwin" then "x86_64-darwin" else system;
-        };
       in
       {
         devShell = pkgs.mkShell {
@@ -25,9 +22,9 @@
 
             lua5_4
 
-            pkgsX86.ghcid
-            pkgsX86.ormolu
-            pkgsX86.hlint
+            ghcid
+            ormolu
+            hlint
 
             (haskellPackages.ghcWithPackages
               (pkgs: with pkgs; [
